@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besin Piramidi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Courier", monospace;
+        }
+
+        /* Açılış animasyonu */
+        .intro {
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #2B2D42;
+            transition: 1s;
+        }
+
+        .logo-header {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #D9DCD6;
+        }
+
+        .logo {
+            position: relative;
+            display: inline-block;
+            bottom: -20px;
+            opacity: 0;
+        }
+
+        .logo.active {
+            bottom: 0;
+            opacity: 1;
+            transition: ease-in-out 0.5s;
+        }
+
+        .logo.fade {
+            bottom: 0;
+            opacity: 0;
+            transition: ease-in-out 0.5s;
+        }
+
+        /* Besin Piramidi */
+        .pyramid-container {
+            position: relative;
+            width: 60%;
+            margin: 100px auto;
+        }
+
+        .pyramid-layer {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .pyramid-layer img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .pyramid-layer span {
+            position: absolute;
+            top: 72%;
+            left: 54%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: black;
+            
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        #video-container {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            margin-left: 50px;
+        }
+
+        video {
+            width: 200%;
+            max-width: 600px;
+            margin-left: 100px;
+        }
+
+        #closeVideo {
+            margin-top: 10px;
+            padding: 5px 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .pyramid-layer:nth-child(1) img { height: 60px; width: 180px; margin-left: 530px; margin-top: -20px;}
+        .pyramid-layer:nth-child(2) img { height: 36px; width: 280px ; margin-left: 480px; margin-top:  10px; ;}
+        .pyramid-layer:nth-child(3) img { height: 38px; width: 400px ; margin-left: 420px; margin-top: 10px;}
+        .pyramid-layer:nth-child(4) img { height: 39px; width: 510px; margin-left: 360px; margin-top: 12px;}
+        .pyramid-layer:nth-child(5) img { height: 40px; width: 630px; margin-left: 300px; margin-top: 15px; }
+
+
+        
+
+    </style>
+</head>
+<body>
+    <div class="intro">
+        <h1 class="logo-header">
+            <span class="logo">11D</span><span class="logo"> Gururla Sunar.</span>
+        </h1>
+    </div>
+
+    <div class="pyramid-container">
+        <div class="pyramid-layer" onclick="playVideo('videos/video5.mp4')">
+            <img src="images/kat1.png" alt="5 Katman">
+            <span>Yırtıcılar</span>
+        </div>
+        <div class="pyramid-layer" onclick="playVideo('videos/video4.mp4')">
+            <img src="images/kat2.png" alt="4 Katman">
+            <span>Üçüncül Tüketiciler</span>
+        </div>
+        <div class="pyramid-layer" onclick="playVideo('videos/video3.mp4')">
+            <img src="images/kat3.png" alt="3 Katman">
+            <span>İkincil Tüketiciler</span>
+        </div>
+        <div class="pyramid-layer" onclick="playVideo('videos/video2.mp4')">
+            <img src="images/kat4.png" alt="2 Katman">
+            <span>Birincil Tüketiciler</span>
+        </div>
+        <div class="pyramid-layer" onclick="playVideo('videos/video1.mp4')">
+            <img src="images/kat5.jpeg" alt="1 Katman">
+            <span>Üreticiler</span>
+        </div>
+    </div>
+
+    <a href="about.html" class="btn">Hakkında</a>
+
+    <style>.btn {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 20px auto;
+        padding: 15px;
+        background-color: #11539e;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 18px;
+        margin-left: 900px;
+        margin-top: -50px;
+    }</style>
+
+    <div id="video-container">
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+        <button id="closeVideo" onclick="closeVideo()">Kapat</button>
+    </div>
+
+    <script>
+        let intro = document.querySelector('.intro');
+        let logoSpan = document.querySelectorAll('.logo');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                logoSpan.forEach((span, idx) => {
+                    setTimeout(() => {
+                        span.classList.add('active');
+                    }, (idx + 1) * 400);
+                });
+
+                setTimeout(() => {
+                    logoSpan.forEach((span, idx) => {
+                        setTimeout(() => {
+                            span.classList.remove('active');
+                            span.classList.add('fade');
+                        }, (idx + 1) * 50);
+                    });
+                }, 2000);
+
+                setTimeout(() => {
+                    intro.style.top = '-100vh';
+                }, 2300);
+            });
+        });
+
+        function playVideo(videoFile) {
+            var videoContainer = document.getElementById("video-container");
+            var videoPlayer = document.getElementById("videoPlayer");
+            var videoSource = document.getElementById("videoSource");
+
+            videoSource.src = videoFile;
+            videoPlayer.load();
+            videoPlayer.play();
+            videoContainer.style.display = "block";
+        }
+
+        function closeVideo() {
+            var videoContainer = document.getElementById("video-container");
+            var videoPlayer = document.getElementById("videoPlayer");
+
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+            videoContainer.style.display = "none";
+        }
+    </script>
+
+    <style><html lang="tr">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>İletişim Butonu</title>
+            <style>
+                .floating-menu {
+                    position: fixed;
+                    bottom: 50px;
+                    right: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    z-index: 1000;
+                    
+                }
+        
+                .contact-btn {
+                    background-color: #8d2910;
+                    color: white;
+                    border: none;
+                    width: 60px;
+                    height: 60px;
+                    font-size: 24px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 50px;
+                    margin-left: 960px ;
+                    
+                }
+        
+                .contact-btn img {
+                    width: 30px;
+                    height: 30px;
+                }
+        
+                .contact-btn:hover {
+                    transform: scale(1.1);
+                }
+        
+                .social-icons {
+                    display: none;
+                    flex-direction: column;
+                    gap: 10px;
+                    margin-top: 10px;
+                    margin-left: 905px ;
+                }
+        
+                .social-icons a {
+                    background: white;
+                    border-radius: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    width: 180px;
+                    height: 50px;
+                    padding: 5px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+                    text-decoration: none;
+                    font-family: Arial, sans-serif;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: black;
+                }
+        
+                .social-icons a img {
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 10px;
+                }
+        
+                .social-icons a:hover {
+                    transform: scale(1.05);
+                }
+        
+                .show {
+                    display: flex !important;
+                }
+        
+               
+            </style></style>
+            
+
+<body>
+    
+    <div class="floating-menu">
+    <button class="contact-btn" onclick="toggleMenu()">
+        <img src="images/instagram.png">
+    </button>
+    <div class="social-icons" id="socialMenu">
+        <a href="https://www.instagram.com/rosewfsad/" target="_blank">
+            <img src="images/instagram.png" alt="Instagram"> Necati Çoban
+        </a>
+        <a href="https://www.instagram.com/aliosmanmarrt/" target="_blank">
+            <img src="images/instagram.png" alt="Instagram"> Ali Osman Mart
+        </a>
+        <a href="https://www.instagram.com/serkan_trnn_/" target="_blank">
+            <img src="images/instagram.png" alt="Instagram"> Serkan Torun
+        </a>
+        <a href="https://www.instagram.com/_yusufcinar/" target="_blank">
+            <img src="images/instagram.png" alt="Instagram"> Yusuf Çınar
+        </a>
+    </div>
+</div>
+
+
+
+<script>
+    function toggleMenu() {
+        document.getElementById("socialMenu").classList.toggle("show");
+    }
+</script>
