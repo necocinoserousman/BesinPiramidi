@@ -150,6 +150,50 @@
         </div>
     </div>
 
+    <div class="piramid-container">
+        <div class="saprotrof">
+            <button class="saprotrof-btn"  onclick="playVideo('videos/video6.mp4')">Saprotroflar</button>
+        </div>
+    
+        <style>
+.piramid-container {
+            position: relative;
+            width: 260px; /* Piramit genişliği */
+            margin: 70px auto;
+            text-align: center;
+        }
+        
+        /* Saprotrof butonu eğik olacak ve piramidin yanına yerleşecek */
+        .saprotrof {
+            position: absolute;
+            top: -360px;
+            right: -320px; /* Butonu piramidin sağ kenarına yerleştir */
+            transform: rotate(40deg); /* Eğik hale getir */
+            transform-origin: left center;
+            z-index: 5;
+            margin-left: 60px;
+        }
+        
+        /* Butonun görünümü */
+        .saprotrof-btn {
+            background-color: #E8C27E; /* Açık kahverengi */
+            color: black;
+            padding: 17px 120px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-left: -22px;
+        }
+        
+        .saprotrof-btn:hover {
+            background-color: #D1A767;
+        }
+
+        </style>
+
     <a href="about.html" class="btn">Hakkında</a>
 
     <style>.btn {
